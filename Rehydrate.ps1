@@ -12,9 +12,10 @@ $storageAccount = Get-AzStorageAccount `
   -Name $storageAccountName
 $ctx = $storageAccount.Context 
 
-# get a list of all of the blobs in the directory filtered by 
+# get a list of all of the blobs in the directory filtered by Archive tier
 $listOfBlobs = Get-AzStorageBlob -Prefix $directoryName -Container $containerName -Context $ctx | Where-Object{$_.ICloudBlob.Properties.StandardBlobTier -eq "Archive"}
 
+# get the count of archive blobs
 Write-Host $listOfBlobs.Count
 
 # this loops through the list of blobs and changes blog tiers. 
